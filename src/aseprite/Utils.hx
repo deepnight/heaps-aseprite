@@ -66,6 +66,13 @@ class Utils {
       data.duration += frame.duration;
       data.frames.push(frame);
 
+      // Read cels userData and store them in the frame
+      for (layerIdx in 0...data.layers.length) {
+        var cel : ase.Cel = ase.frames[i].cel(layerIdx);
+        if (cel != null && cel.chunk.userData != null)
+          frame.celsUserData[layerIdx] = cel.chunk.userData;
+      }
+
       // Increment the width/height in tiles
       var y = Math.floor(i / data.widthInTiles);
       if (y >= data.heightInTiles) {
